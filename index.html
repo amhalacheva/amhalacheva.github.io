@@ -2745,6 +2745,96 @@
       color: var(--ink-3);
     }
 
+    #publications .pub-highlight {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    #publications .pub-authors .pub-me {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .tldr-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 26px;
+      padding: 4px 9px 4px 10px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tldr-btn svg {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.3s ease;
+    }
+    .tldr-btn:hover,
+    .tldr-btn:focus-visible,
+    .tldr-btn[aria-expanded="true"] {
+      background: var(--ink);
+      color: var(--surface);
+      outline: none;
+    }
+    .tldr-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+    /* Pin the TL;DR button into the venue column, level with the tag row */
+    #publications .pub-tags { position: relative; }
+    #publications .pub-tags .tldr-btn {
+      position: absolute;
+      top: 0;
+      left: calc(-82px - 16px);
+      padding: 4px 8px;
+      letter-spacing: 0.1em;
+    }
+    @media (max-width: 980px) {
+      #publications .pub-tags .tldr-btn { left: calc(-72px - 16px); }
+    }
+    @media (max-width: 680px) {
+      #publications .pub-tags .tldr-btn { position: static; }
+    }
+
+    .tldr-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition: grid-template-rows 0.35s ease, opacity 0.3s ease, margin 0.35s ease;
+    }
+    .tldr-panel.is-open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 12px;
+    }
+    .tldr-inner { overflow: hidden; }
+    .tldr-inner p {
+      padding: 2px 0 2px 14px;
+      border-left: 2px solid var(--accent);
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--ink-2);
+      max-width: 680px;
+    }
+
     #publications .pub-tags {
       margin-top: 9px;
       gap: 6px;
@@ -3023,16 +3113,36 @@
           <p class="pub-empty" id="pub-empty">No publications found for this tag.</p>
 
           <div class="pub-row" data-tags="3d-scene-understanding,vision-language-models,gaussian-splats,open-vocabulary">
-            <span class="pub-venue">RA-L<br>2025</span>
+            <span class="pub-venue">NeurIPS<br>2026<br><span class="pub-highlight">Spotlight</span></span>
             <div>
-              <p class="pub-title">GaussianVLM: Scene-Centric 3D Vision-Language Models Using Language-Aligned Gaussian Splats for Embodied Reasoning and Beyond</p>
-              <p class="pub-authors">Anna-Maria Halacheva, Jan-Nico Zaech, Xi Wang, Danda Pani Paudel, Luc Van Gool</p>
+              <p class="pub-title">P³-VLM: A Point-based Alternative for Grounded 3D Vision-Language Models</p>
+              <p class="pub-authors"><strong class="pub-me">Anna-Maria Halacheva</strong>, Jan-Nico Zaech, Sombit Dey, Luc Van Gool, Danda Pani Paudel</p>
               <div class="pub-tags" aria-label="Publication topics">
                 <a class="pub-tag" href="#tag=3d-scene-understanding">3D Scene Understanding</a>
                 <a class="pub-tag" href="#tag=vision-language-models">Vision-Language Models</a>
                 <a class="pub-tag" href="#tag=open-vocabulary">Open Vocabulary</a>
                 <a class="pub-tag" href="#tag=gaussian-splats">Gaussian Splats</a>
+                <button class="tldr-btn" type="button" aria-expanded="false" aria-controls="tldr-0"><span>TL;DR</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
               </div>
+              <div class="tldr-panel" id="tldr-0"><div class="tldr-inner"><p>Identifies a shortcut in how 3D vision-language models learn grounding: when asked about an object marked by a bounding box, the box's size and position already give away much of the answer, through both the text prompt and the model architecture. Replaces the box with a single 3D point, under which existing models lose much of their accuracy, and introduces P³-VLM, a 3D VLM designed for point prompts.</p></div></div>
+            </div>
+            <div class="pub-teaser"><img src="static/imgs/p3vlm_wide_800x450.png" alt="teaser" onerror="this.style.display='none'"></div>
+            <a class="pub-arrow" href="http://p3vlm.insait.ai">↗</a>
+          </div>
+
+          <div class="pub-row" data-tags="3d-scene-understanding,vision-language-models,gaussian-splats,open-vocabulary">
+            <span class="pub-venue">RA-L<br>2025</span>
+            <div>
+              <p class="pub-title">GaussianVLM: Scene-Centric 3D Vision-Language Models Using Language-Aligned Gaussian Splats for Embodied Reasoning and Beyond</p>
+              <p class="pub-authors"><strong class="pub-me">Anna-Maria Halacheva</strong>, Jan-Nico Zaech, Xi Wang, Danda Pani Paudel, Luc Van Gool</p>
+              <div class="pub-tags" aria-label="Publication topics">
+                <a class="pub-tag" href="#tag=3d-scene-understanding">3D Scene Understanding</a>
+                <a class="pub-tag" href="#tag=vision-language-models">Vision-Language Models</a>
+                <a class="pub-tag" href="#tag=open-vocabulary">Open Vocabulary</a>
+                <a class="pub-tag" href="#tag=gaussian-splats">Gaussian Splats</a>
+                <button class="tldr-btn" type="button" aria-expanded="false" aria-controls="tldr-1"><span>TL;DR</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
+              </div>
+              <div class="tldr-panel" id="tldr-1"><div class="tldr-inner"><p>Introduces the first 3D vision-language model operating natively on Gaussian splats, without object detectors. A dual sparsifier distills about 40k language-aligned Gaussians into 132 task-aware tokens, achieving state-of-the-art results across 3D VQA benchmarks and fivefold gains out of domain.</p></div></div>
             </div>
             <div class="pub-teaser"><img src="static/imgs/1gsvlm.PNG" alt="teaser" onerror="this.style.display='none'"></div>
             <a class="pub-arrow" href="https://insait-institute.github.io/gaussianvlm.github.io/">↗</a>
@@ -3042,39 +3152,56 @@
             <span class="pub-venue">ICCV<br>2025</span>
             <div>
               <p class="pub-title">Articulate3D: Holistic Understanding of 3D Scenes as Universal Scene Description</p>
-              <p class="pub-authors">Anna-Maria Halacheva*, Yang Miao*, Jan-Nico Zaech, Xi Wang, Danda Pani Paudel, Luc Van Gool</p>
+              <p class="pub-authors"><strong class="pub-me">Anna-Maria Halacheva*</strong>, Yang Miao*, Jan-Nico Zaech, Xi Wang, Danda Pani Paudel, Luc Van Gool</p>
               <div class="pub-tags" aria-label="Publication topics">
                 <a class="pub-tag" href="#tag=3d-scene-understanding">3D Scene Understanding</a>
                 <a class="pub-tag" href="#tag=open-vocabulary">Open Vocabulary</a>
                 <a class="pub-tag" href="#tag=articulation">Articulation</a>
+                <button class="tldr-btn" type="button" aria-expanded="false" aria-controls="tldr-2"><span>TL;DR</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button>
               </div>
+              <div class="tldr-panel" id="tldr-2"><div class="tldr-inner"><p>Introduces a dataset of 280 indoor scenes in Universal Scene Description format, annotated with object and part segmentation, motion parameters, movable and graspable regions, connectivity, and object mass, so scenes can be used directly in downstream tools. Proposes USDNet, which jointly segments movable and graspable parts and predicts their articulation from scene point clouds, and establishes a benchmark for articulated scene understanding.</p></div></div>
             </div>
             <div class="pub-teaser"><img src="static/imgs/artic3d.png" alt="teaser" onerror="this.style.display='none'"></div>
             <a class="pub-arrow" href="https://insait-institute.github.io/articulate3d.github.io/">↗</a>
           </div>
-
-          <div class="pub-row" data-tags="embodied-ai,3d-scene-understanding,articulation,open-vocabulary">
-            <span class="pub-venue">CVPRW OpenSUN3D 2025</span>
-            <div>
-              <p class="pub-title">From Scan to Action: Leveraging Realistic Scans for Embodied Scene Understanding</p>
-              <p class="pub-authors">Anna-Maria Halacheva, Jan-Nico Zaech, Sombit Dey, Danda Pani Paudel, Luc Van Gool</p>
-              <div class="pub-tags" aria-label="Publication topics">
-                <a class="pub-tag" href="#tag=embodied-ai">Embodied AI</a>
-                <a class="pub-tag" href="#tag=3d-scene-understanding">3D Scene Understanding</a>
-                <a class="pub-tag" href="#tag=open-vocabulary">Open Vocabulary</a>
-                <a class="pub-tag" href="#tag=articulation">Articulation</a>
-              </div>
-            </div>
-            <div class="pub-teaser"><img src="static/imgs/teddy_picked.PNG" alt="teaser" onerror="this.style.display='none'"></div>
-            <a class="pub-arrow" href="https://arxiv.org/pdf/2507.17585">↗</a>
-          </div>
-
+          
           <div class="more" id="pub-more">
+            <div class="pub-row" data-tags="embodied-ai,3d-scene-understanding,articulation,open-vocabulary">
+              <span class="pub-venue">CVPRW OpenSUN3D 2025</span>
+              <div>
+                <p class="pub-title">From Scan to Action: Leveraging Realistic Scans for Embodied Scene Understanding</p>
+                <p class="pub-authors"><strong class="pub-me">Anna-Maria Halacheva</strong>, Jan-Nico Zaech, Sombit Dey, Danda Pani Paudel, Luc Van Gool</p>
+                <div class="pub-tags" aria-label="Publication topics">
+                  <a class="pub-tag" href="#tag=embodied-ai">Embodied AI</a>
+                  <a class="pub-tag" href="#tag=3d-scene-understanding">3D Scene Understanding</a>
+                  <a class="pub-tag" href="#tag=open-vocabulary">Open Vocabulary</a>
+                  <a class="pub-tag" href="#tag=articulation">Articulation</a>
+                </div>
+              </div>
+              <div class="pub-teaser"><img src="static/imgs/teddy_picked.PNG" alt="teaser" onerror="this.style.display='none'"></div>
+              <a class="pub-arrow" href="https://arxiv.org/pdf/2507.17585">↗</a>
+            </div>
+
+            <div class="pub-row" data-tags="vision-language-models,3d-scene-understanding">
+              <span class="pub-venue">Arxiv 2026</span>
+              <div>
+                <p class="pub-title">Task-Adaptive Grounded 3D-Programmers Using 2D VLMs</p>
+                <p class="pub-authors">Arman Raayatsanati, Sombit Dey, <strong class="pub-me">Anna-Maria Halacheva</strong>, Jan-Nico Zaech, Luc Van Gool, Danda Pani Paudel</p>
+                <div class="pub-tags" aria-label="Publication topics">
+                  <a class="pub-tag" href="#tag=vision-language-models">Vision-Language Models</a>
+                  <a class="pub-tag" href="#tag=3d-scene-understanding">3D Scene Understanding</a>
+                </div>
+              </div>
+              <div class="pub-teaser"><img src="static/imgs/publication-placeholder.svg" alt="teaser" onerror="this.style.display='none'"></div>
+              <a class="pub-arrow" href="https://arxiv.org/pdf/2610.02021">↗</a>
+            </div>
+
+          
             <div class="pub-row" data-tags="transformers,attention">
               <span class="pub-venue">Arxiv 2024</span>
               <div>
                 <p class="pub-title">Expanding Expressivity in Transformer Models with MobiusAttention</p>
-                <p class="pub-authors">Anna-Maria Halacheva, Mojtaba Nayyeri, Steffen Staab</p>
+                <p class="pub-authors"><strong class="pub-me">Anna-Maria Halacheva</strong>, Mojtaba Nayyeri, Steffen Staab</p>
                 <div class="pub-tags" aria-label="Publication topics">
                   <a class="pub-tag" href="#tag=transformers">Transformers</a>
                   <a class="pub-tag" href="#tag=attention">Attention</a>
@@ -3101,6 +3228,14 @@
       </div>
       <div class="section-main">
         <div class="rec-list" id="rec-list">
+
+          <div class="rec-row">
+            <span class="rec-year">2026</span>
+            <div class="rec-content">
+              <p class="rec-title">Top Reviewer</p>
+              <p class="rec-sub">NeurIPS 2026</p>
+            </div>
+          </div>
 
           <div class="rec-row">
             <span class="rec-year">2026</span>
@@ -3428,6 +3563,16 @@
         btn.addEventListener('click', function(e){
           e.preventDefault();
           toggleMore(btn);
+        });
+      });
+
+      // Publication TL;DR toggles
+      document.querySelectorAll('.tldr-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var panel = document.getElementById(btn.getAttribute('aria-controls'));
+          if(!panel) return;
+          var isOpen = panel.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         });
       });
 
